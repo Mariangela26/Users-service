@@ -1,9 +1,9 @@
 package com.pragma.powerup.infrastructure.configuration;
 
-import com.pragma.powerup.domain.api.IObjectServicePort;
-import com.pragma.powerup.domain.spi.IObjectPersistencePort;
-import com.pragma.powerup.domain.usecase.ObjectUseCase;
-import com.pragma.powerup.infrastructure.out.jpa.adapter.ObjectJpaAdapter;
+import com.pragma.powerup.domain.api.IRoleServicePort;
+import com.pragma.powerup.domain.spi.persistence.IRolePersistencePort;
+import com.pragma.powerup.domain.usecase.RoleUseCase;
+import com.pragma.powerup.infrastructure.out.jpa.adapter.RoleJpaAdapter;
 import com.pragma.powerup.infrastructure.out.jpa.mapper.IObjectEntityMapper;
 import com.pragma.powerup.infrastructure.out.jpa.repository.IObjectRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +17,12 @@ public class BeanConfiguration {
     private final IObjectEntityMapper objectEntityMapper;
 
     @Bean
-    public IObjectPersistencePort objectPersistencePort() {
-        return new ObjectJpaAdapter(objectRepository, objectEntityMapper);
+    public IRolePersistencePort objectPersistencePort() {
+        return new RoleJpaAdapter(objectRepository, objectEntityMapper);
     }
 
     @Bean
-    public IObjectServicePort objectServicePort() {
-        return new ObjectUseCase(objectPersistencePort());
+    public IRoleServicePort objectServicePort() {
+        return new RoleUseCase(objectPersistencePort());
     }
 }
