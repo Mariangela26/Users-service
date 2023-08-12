@@ -5,7 +5,7 @@ import com.pragma.powerup.application.dto.response.ObjectResponseDto;
 import com.pragma.powerup.application.handler.IObjectHandler;
 import com.pragma.powerup.application.mapper.IObjectRequestMapper;
 import com.pragma.powerup.application.mapper.IObjectResponseMapper;
-import com.pragma.powerup.domain.api.IObjectServicePort;
+import com.pragma.powerup.domain.api.IRoleServicePort;
 import com.pragma.powerup.domain.model.UserModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import java.util.List;
 @Transactional
 public class ObjectHandler implements IObjectHandler {
 
-    private final IObjectServicePort objectServicePort;
+    private final IRoleServicePort objectServicePort;
     private final IObjectRequestMapper objectRequestMapper;
     private final IObjectResponseMapper objectResponseMapper;
 
