@@ -1,7 +1,7 @@
 package com.pragma.powerup.infrastructure.input.rest;
 
-import com.pragma.powerup.application.dto.request.ObjectRequestDto;
-import com.pragma.powerup.application.dto.response.ObjectResponseDto;
+import com.pragma.powerup.application.dto.request.UserRequestDto;
+import com.pragma.powerup.application.dto.response.UserResponseDto;
 import com.pragma.powerup.application.handler.IObjectHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -33,8 +33,8 @@ public class ObjectRestController {
             @ApiResponse(responseCode = "409", description = "Object already exists", content = @Content)
     })
     @PostMapping("/")
-    public ResponseEntity<Void> saveObject(@RequestBody ObjectRequestDto objectRequestDto) {
-        objectHandler.saveObject(objectRequestDto);
+    public ResponseEntity<Void> saveObject(@RequestBody UserRequestDto userRequestDto) {
+        objectHandler.saveObject(userRequestDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -42,11 +42,11 @@ public class ObjectRestController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "All objects returned",
                     content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = ObjectResponseDto.class)))),
+                            array = @ArraySchema(schema = @Schema(implementation = UserResponseDto.class)))),
             @ApiResponse(responseCode = "404", description = "No data found", content = @Content)
     })
     @GetMapping("/")
-    public ResponseEntity<List<ObjectResponseDto>> getAllObjects() {
+    public ResponseEntity<List<UserResponseDto>> getAllObjects() {
         return ResponseEntity.ok(objectHandler.getAllObjects());
     }
 

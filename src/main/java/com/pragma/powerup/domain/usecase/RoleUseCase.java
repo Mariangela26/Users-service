@@ -1,6 +1,7 @@
 package com.pragma.powerup.domain.usecase;
 
 import com.pragma.powerup.domain.api.IRoleServicePort;
+import com.pragma.powerup.domain.model.RoleModel;
 import com.pragma.powerup.domain.spi.persistence.IRolePersistencePort;
 
 import javax.management.relation.Role;
@@ -17,17 +18,17 @@ public class RoleUseCase implements IRoleServicePort {
 
 
     @Override
-    public void saveRole(Role role) {
+    public void saveRole(RoleModel role) {
         rolePersistencePort.saveRole(role);
     }
 
     @Override
-    public Role getRoleById(Long id) {
+    public RoleModel getRoleById(Long id) {
         return rolePersistencePort.getRoleById(id);
     }
 
     @Override
-    public List<Role> getAllRoles() {
+    public List<RoleModel> getAllRoles() {
         return rolePersistencePort.getAllRoles();
     }
 

@@ -1,6 +1,6 @@
 package com.pragma.powerup.application.mapper;
 
-import com.pragma.powerup.application.dto.response.ObjectResponseDto;
+import com.pragma.powerup.application.dto.response.UserResponseDto;
 import com.pragma.powerup.domain.model.UserModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -11,7 +11,7 @@ import java.util.List;
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface IObjectResponseMapper {
-    ObjectResponseDto toResponse(UserModel userModel);
+    UserResponseDto toResponse(UserModel userModel);
 
-    List<ObjectResponseDto> toResponseList(List<UserModel> userModelList);
+    List<UserResponseDto> toResponseList(List<UserModel> userModelList);
 }
