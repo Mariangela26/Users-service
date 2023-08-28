@@ -1,14 +1,19 @@
 package com.pragma.powerup.infrastructure.configuration;
 
+import com.pragma.powerup.application.mapper.IRestEmployeeRequestMapper;
+import com.pragma.powerup.application.mapper.IRestaurantResponseMapper;
 import com.pragma.powerup.domain.api.IRoleServicePort;
 import com.pragma.powerup.domain.api.IUserServicePort;
+import com.pragma.powerup.domain.spi.IUserPassEncodePort;
 import com.pragma.powerup.domain.spi.feignclients.IRestEmployeeFeignClientPort;
 import com.pragma.powerup.domain.spi.persistence.IRolePersistencePort;
 import com.pragma.powerup.domain.spi.persistence.IUserPersistencePort;
 import com.pragma.powerup.domain.usecase.RoleUseCase;
 import com.pragma.powerup.domain.usecase.UserUseCase;
+import com.pragma.powerup.infrastructure.out.BCrypPasswordEncoderAdapter;
 import com.pragma.powerup.infrastructure.out.feignclients.RestEmployeeFeignClient;
 import com.pragma.powerup.infrastructure.out.feignclients.RestaurantFeignClient;
+import com.pragma.powerup.infrastructure.out.jpa.adapter.RoleJpaAdapter;
 import com.pragma.powerup.infrastructure.out.jpa.adapter.UserJpaAdapter;
 import com.pragma.powerup.infrastructure.out.jpa.mapper.IRoleEntityMapper;
 import com.pragma.powerup.infrastructure.out.jpa.mapper.IUserEntityMapper;
@@ -36,7 +41,7 @@ public class BeanConfiguration {
     private final IRestaurantResponseMapper restaurantResponseMapper;
 
     @Bean
-    public IUserPasswordEncoderPort  userPasswordEncoderPort(){
+    public IUserPassEncodePort userPasswordEncoderPort(){
         return new BCrypPasswordEncoderAdapter();
     }
 
@@ -52,7 +57,7 @@ public class BeanConfiguration {
 
     @Bean
     public IRolePersistencePort rolPersistencePort(){
-        return new RolJpaAdapter(rolRepository, rolEntityMapper);
+        return new RoleJpaAdapter(rolRepository, rolEntityMapper);
     }
 
     @Bean
