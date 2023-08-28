@@ -4,15 +4,20 @@ import com.pragma.powerup.application.mapper.IRestEmployeeRequestMapper;
 import com.pragma.powerup.application.mapper.IRestaurantResponseMapper;
 import com.pragma.powerup.domain.api.IRoleServicePort;
 import com.pragma.powerup.domain.api.IUserServicePort;
+import com.pragma.powerup.domain.spi.IToken;
 import com.pragma.powerup.domain.spi.IUserPassEncodePort;
 import com.pragma.powerup.domain.spi.feignclients.IRestEmployeeFeignClientPort;
+import com.pragma.powerup.domain.spi.feignclients.IRestaurantFeignClientPort;
 import com.pragma.powerup.domain.spi.persistence.IRolePersistencePort;
 import com.pragma.powerup.domain.spi.persistence.IUserPersistencePort;
 import com.pragma.powerup.domain.usecase.RoleUseCase;
 import com.pragma.powerup.domain.usecase.UserUseCase;
 import com.pragma.powerup.infrastructure.out.BCrypPasswordEncoderAdapter;
+import com.pragma.powerup.infrastructure.out.TokenAdapter;
 import com.pragma.powerup.infrastructure.out.feignclients.RestEmployeeFeignClient;
 import com.pragma.powerup.infrastructure.out.feignclients.RestaurantFeignClient;
+import com.pragma.powerup.infrastructure.out.feignclients.adapter.RestEmployeeFeignAdapter;
+import com.pragma.powerup.infrastructure.out.feignclients.adapter.RestaurantFeignAdapter;
 import com.pragma.powerup.infrastructure.out.jpa.adapter.RoleJpaAdapter;
 import com.pragma.powerup.infrastructure.out.jpa.adapter.UserJpaAdapter;
 import com.pragma.powerup.infrastructure.out.jpa.mapper.IRoleEntityMapper;
@@ -52,17 +57,17 @@ public class BeanConfiguration {
 
     @Bean
     public IUserServicePort userServicePort(){
-        return new UserUseCase(userPersistencePort(), userPasswordEncoderPort(), restaurantEmployeeFeignClientPort(), token(), restaurantFeingClientPort());
+        return new UserUseCase(userPersistencePort(), userPasswordEncoderPort(), restaurantEmployeeFeignClientPort(), token(), restaurantFeignClientPort());
     }
 
     @Bean
-    public IRolePersistencePort rolPersistencePort(){
+    public IRolePersistencePort rolePersistencePort(){
         return new RoleJpaAdapter(rolRepository, rolEntityMapper);
     }
 
     @Bean
-    public IRoleServicePort rolServicePort(){
-        return  new RolUseCase(rolPersistencePort());
+    public IRoleServicePort roleServicePort(){
+        return  new RoleUseCase(rolePersistencePort());
     }
 
     @Bean
@@ -71,7 +76,7 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public IRestaurantFeingClientPort restaurantFeingClientPort(){
+    public IRestaurantFeignClientPort restaurantFeignClientPort(){
         return new RestaurantFeignAdapter(restaurantFeignClient, restaurantResponseMapper);
     }
     @Bean
